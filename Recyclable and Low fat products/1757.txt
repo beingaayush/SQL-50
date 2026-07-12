@@ -1,0 +1,26 @@
+LC 1757 — Recyclable and Low Fat Products
+Problem Statement
+
+You are given a table Products containing information about products.
+
+Each product has:
+
+product_id
+low_fats (Y or N)
+recyclable (Y or N)
+
+Your task is to return the product IDs of products that are:
+
+Low fat
+Recyclable
+
+Return only the product_id.
+
+Core Idea
+
+This is testing one basic SQL concept:
+
+Filtering rows using multiple conditions (WHERE clause).
+Both conditions must be true at the same time, so think about the logical operator that combines conditions.
+
+No joins, grouping, sorting, or aggregation are needed.
