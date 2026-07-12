@@ -1,0 +1,8 @@
+LC 1683 — Invalid Tweets
+Problem Statement
+
+Given a Tweets table, return the IDs of tweets whose content is more than 15 characters long.
+
+Core Idea
+Use WHERE to filter rows.
+Find the length of a string using a string length function (e.g., LENGTH()/CHAR_LENGTH() depending on SQL dialect).
