@@ -1,0 +1,30 @@
+LC 1581 — Customer Who Visited but Did Not Make Any Transactions
+Problem Statement
+
+Two tables:
+
+Visits → Every customer visit.
+Transactions → Purchases made during a visit.
+
+Find customers who visited but didn't buy anything. Return:
+
+customer_id
+Number of visits where they didn't make a transaction.
+Core Idea
+LEFT JOIN Visits with Transactions using visit_id.
+Find visits where no matching transaction exists (NULL after the join).
+GROUP BY customer_id and COUNT() those visits.
+
+Think of it like this:
+
+Visit 1 → Bought something ✅
+Visit 2 → No purchase ❌
+Visit 3 → No purchase ❌
+
+Answer: Customer has 2 visits without transactions.
+
+This problem mainly tests:
+
+LEFT JOIN
+Finding NULL after a JOIN
+GROUP BY + COUNT()
