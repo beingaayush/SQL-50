@@ -1,0 +1,8 @@
+LC 1378 — Replace Employee ID With The Unique Identifier
+Problem Statement
+
+Given Employees and EmployeeUNI tables, return each employee's unique ID and name. If an employee doesn't have a unique ID, show NULL.
+
+Core Idea
+Practice LEFT JOIN.
+Keep all employees and match their unique IDs when available.
