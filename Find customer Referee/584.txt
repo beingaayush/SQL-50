@@ -1,0 +1,11 @@
+LC 584 — Find Customer Referee
+Problem Statement
+
+Given a Customer table, return the names of customers whose referee is not 2.
+
+Also include customers who don't have any referee (NULL).
+
+Core Idea
+Practice WHERE clause.
+Handle NULL values correctly.
+Remember: NULL cannot be compared using = or !=; use IS NULL instead.
