@@ -1,0 +1,12 @@
+LC 595 — Big Countries
+Problem Statement
+
+Given a World table, return the name, population, and area of countries that are big.
+
+A country is big if:
+
+area >= 3000000 OR
+population >= 25000000
+Core Idea
+Practice WHERE clause.
+Filter rows using the OR operator.
