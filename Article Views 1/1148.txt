@@ -1,0 +1,11 @@
+LC 1148 — Article Views I
+Problem Statement
+
+Given a Views table, return the IDs of authors who viewed their own articles.
+
+Return each author only once and sort the result in ascending order.
+
+Core Idea
+Compare values from two columns in the same row.
+Use DISTINCT to remove duplicates.
+Use ORDER BY for sorting.
