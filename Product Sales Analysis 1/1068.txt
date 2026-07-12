@@ -1,0 +1,8 @@
+LC 1068 — Product Sales Analysis I
+Problem Statement
+
+Given Sales and Product tables, return the product name, year, and price for each sale.
+
+Core Idea
+Practice INNER JOIN.
+Match the two tables using the product_id to get product details with each sale.
