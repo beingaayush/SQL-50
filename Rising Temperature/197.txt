@@ -1,0 +1,9 @@
+LC 197 — Rising Temperature
+Problem Statement
+
+Given a Weather table, find the IDs where the temperature is higher than the previous day's temperature.
+
+Core Idea
+Practice SELF JOIN.
+Join the table with itself to compare today's data with the previous day's data.
+Filter rows where today's temperature > yesterday's temperature.
