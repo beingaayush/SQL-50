@@ -1,0 +1,231 @@
+# LeetCode 1661 – Average Time of Process per Machine (Single Page Notes)
+
+## 🎯 Problem
+
+Ek `Activity` table di gayi hai.
+
+Har **process** ke sirf **2 records** hote hain:
+
+* `start`
+* `end`
+
+Example:
+
+| machine_id | process_id | activity_type | timestamp |
+| ---------- | ---------- | ------------- | --------: |
+| 0          | 0          | start         |     0.712 |
+| 0          | 0          | end           |     1.520 |
+| 0          | 1          | start         |     3.140 |
+| 0          | 1          | end           |     4.120 |
+
+Question:
+
+> **Har machine ka average processing time nikalna hai.**
+
+---
+
+## Step 1: Har process ka time nikalo
+
+Formula:
+
+```text
+Processing Time = End Timestamp - Start Timestamp
+```
+
+Example:
+
+```text
+Process 0
+1.520 - 0.712 = 0.808
+
+Process 1
+4.120 - 3.140 = 0.980
+```
+
+---
+
+## Step 2: Machine ka average nikalo
+
+Machine 0:
+
+```text
+(0.808 + 0.980) / 2 = 0.894
+```
+
+Output:
+
+| machine_id | processing_time |
+| ---------- | --------------: |
+| 0          |           0.894 |
+
+---
+
+# SQL Challenge 🤔
+
+Problem ye hai ki **start aur end alag-alag rows me hain.**
+
+```text
+Row 1 → start
+Row 2 → end
+```
+
+Hume in dono rows ko **pair** karna padega.
+
+Isi liye **SELF JOIN** use hota hai.
+
+---
+
+# Self Join
+
+Same table ko 2 naam de dete hain.
+
+```sql
+FROM Activity s
+JOIN Activity e
+```
+
+```text
+s = Start wali table
+e = End wali table
+```
+
+(Actually table ek hi hai, bas SQL usko 2 baar dekh raha hai.)
+
+---
+
+# Pair kaise banega?
+
+```sql
+ON s.machine_id = e.machine_id
+AND s.process_id = e.process_id
+```
+
+Meaning:
+
+* Machine same honi chahiye.
+* Process same hona chahiye.
+
+Ab Process 0 ka start aur end ek saath aa jayega.
+
+---
+
+# Sirf Start aur End chahiye
+
+```sql
+WHERE s.activity_type = 'start'
+AND e.activity_type = 'end'
+```
+
+Ab pair ban gaya:
+
+| Start |   End |
+| ----: | ----: |
+| 0.712 | 1.520 |
+
+---
+
+# Time nikalo
+
+```sql
+e.timestamp - s.timestamp
+```
+
+Result:
+
+```text
+1.520 - 0.712 = 0.808
+```
+
+---
+
+# Average nikalo
+
+```sql
+AVG(e.timestamp - s.timestamp)
+```
+
+---
+
+# Machine-wise result
+
+```sql
+GROUP BY s.machine_id
+```
+
+Har machine ka alag average mil jayega.
+
+---
+
+# Final Query
+
+```sql
+SELECT
+    s.machine_id,
+    ROUND(AVG(e.timestamp - s.timestamp), 3) AS processing_time
+FROM Activity s
+JOIN Activity e
+ON s.machine_id = e.machine_id
+AND s.process_id = e.process_id
+WHERE s.activity_type = 'start'
+AND e.activity_type = 'end'
+GROUP BY s.machine_id;
+```
+
+---
+
+# Line-by-Line
+
+```sql
+FROM Activity s
+```
+
+➡️ Activity table ko `s` naam diya.
+
+```sql
+JOIN Activity e
+```
+
+➡️ Usi Activity table ko dubara `e` naam diya.
+
+```sql
+ON s.machine_id = e.machine_id
+AND s.process_id = e.process_id
+```
+
+➡️ Same machine + same process ko match karo.
+
+```sql
+WHERE s.activity_type = 'start'
+AND e.activity_type = 'end'
+```
+
+➡️ Left row sirf start, right row sirf end.
+
+```sql
+e.timestamp - s.timestamp
+```
+
+➡️ Processing time nikalo.
+
+```sql
+AVG(...)
+```
+
+➡️ Sab process ka average.
+
+```sql
+GROUP BY s.machine_id
+```
+
+➡️ Har machine ka alag result.
+
+---
+
+## 💡 Memory Trick
+
+```text
+1. Pair start & end  → SELF JOIN
+2. Time = End - Start
+3. AVG(Time)
+4. GROUP BY machine_id
+```
